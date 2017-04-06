@@ -51,7 +51,7 @@ public class MainListener extends ProximiioListener {
     @Override
     public void geofenceEnter(ProximiioGeofence geofence) {
         Log.d(ID, "Entered geofence: " + geofence.getName());
-        main.updateGeofence(geofence.getName());
+        main.updateCheckpoint(geofence);
     }
 
     void onDestroy() {

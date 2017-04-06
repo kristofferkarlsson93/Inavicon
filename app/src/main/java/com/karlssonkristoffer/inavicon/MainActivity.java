@@ -1,24 +1,31 @@
 package com.karlssonkristoffer.inavicon;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.jar.Attributes;
+
+import io.proximi.proximiiolibrary.ProximiioGeofence;
 
 public class MainActivity extends AppCompatActivity {
     private MainListener mainListener;
+    private Chechpoint[] checkpoints ;
+    private Path demoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        checkpoints = new Chechpoint[10];
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainListener = new MainListener(this);
+        demoPath = new Path();
     }
 
     @Override
@@ -39,12 +46,22 @@ public class MainActivity extends AppCompatActivity {
         text.setText(String.valueOf(latittude) + "\n " + String.valueOf(longitude));
     }
     //for debug
-    public void updateGeofence(String name) {
+    public void updateCheckpoint(ProximiioGeofence activatedGeofence) {
         TextView text = (TextView) findViewById(R.id.geofence);
-        text.setText("Entered: " + name);
-        ImageView image = (ImageView) findViewById(R.id.pingvin);
-        image.setImageResource(R.drawable.testimagetwo);
+        text.setText("Entered: " + activatedGeofence.getName());
+        ImageView icon = (ImageView) findViewById(R.id.pingvin);
 
+        if(activatedGeofence.getName().equals(demoPath.getCurrent().getGeofenceName())) {
+            icon.setImageResource(demoPath.getNext().getIcon());
+            demoPath.lookForNext();
+        }
+
+
+       /* if(!demoPath.currentIsPassed()) {
+
+        }*/
+
+        //http://stackoverflow.com/questions/5254100/how-to-set-an-imageviews-image-from-a-string
     }
 
     @Override
