@@ -18,17 +18,18 @@
 
     <Button
         android:id="@+id/startButton"
-        android:layout_width="181dp"
+        android:layout_width="183dp"
         android:layout_height="80dp"
+        android:background="@drawable/roundedbutton"
         android:text="Start!"
         android:textSize="18sp"
-        android:background="@color/buttonColor"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.498"
-        tools:layout_editor_absoluteY="199dp" />
+        tools:layout_editor_absoluteY="215dp" />
 
     <TextView
         android:id="@+id/nameText"

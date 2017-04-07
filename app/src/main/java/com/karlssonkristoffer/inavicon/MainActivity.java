@@ -28,12 +28,15 @@ public class MainActivity extends AppCompatActivity {
         demoPath = new Path();
     }
 
+
+    //From Proximi. To get permissions from users phone
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         mainListener.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    //Catches the result from permission request.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -41,26 +44,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //for debug
+
+    /**
+     * Uppdates the possition text when user phone gets a new possition
+     * @param latittude The new latitude to display
+     * @param longitude The new longitude to display
+     */
     public void updatePosText(double latittude, double longitude) {
         TextView text = (TextView) findViewById(R.id.location);
         text.setText(String.valueOf(latittude) + "\n " + String.valueOf(longitude));
     }
-    //for debug
+
+
+    /**
+     *  Prints out new geofence-name and shows next icon if user enters correct geofence.
+     * @param activatedGeofence - A geofence from proximi
+     */
     public void updateCheckpoint(ProximiioGeofence activatedGeofence) {
         TextView text = (TextView) findViewById(R.id.geofence);
         text.setText("Entered: " + activatedGeofence.getName());
-        ImageView icon = (ImageView) findViewById(R.id.pingvin);
+        ImageView icon = (ImageView) findViewById(R.id.currentIcon);
 
         if(activatedGeofence.getName().equals(demoPath.getCurrent().getGeofenceName())) {
             icon.setImageResource(demoPath.getNext().getIcon());
             demoPath.lookForNext();
         }
-
-
-       /* if(!demoPath.currentIsPassed()) {
-
-        }*/
-
         //http://stackoverflow.com/questions/5254100/how-to-set-an-imageviews-image-from-a-string
     }
 

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Inavicon</string>
+    <string name="geofence">Geofence</string>
+    <string name="location">Location</string>
 </resources>
