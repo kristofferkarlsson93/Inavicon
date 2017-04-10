@@ -1,7 +1,5 @@
 package com.karlssonkristoffer.inavicon;
 
-import android.widget.ImageView;
-
 /**
  * Created by Kristoffer on 2017-04-06.
  */
@@ -9,15 +7,27 @@ import android.widget.ImageView;
 public class Chechpoint {
     private String geofenceName;
     private int icon;
-    private Boolean passed = false;
+    private String instruction;
+    private Boolean instructionFlag;
 
-    public Chechpoint(String geofenceName, int icon) {
+    public Chechpoint (String geofenceName, int icon) {
         this.geofenceName = geofenceName;
         this.icon = icon;
+        instructionFlag = false;
+    }
+    public Chechpoint(String geofenceName, int icon, String instruction) {
+        this.geofenceName = geofenceName;
+        this.icon = icon;
+        this.instruction = instruction;
+        instructionFlag = true;
     }
 
-    public void setPassed(Boolean newStatus) {
-        passed = newStatus;
+    public Boolean hasInstruction() {
+        return instructionFlag;
+    }
+
+    public String getInstruction() {
+        return instruction;
     }
 
     public String getGeofenceName() {
@@ -28,9 +38,6 @@ public class Chechpoint {
         return icon;
     }
 
-    public Boolean isPassed() {
-        return passed;
-    }
 
 
 

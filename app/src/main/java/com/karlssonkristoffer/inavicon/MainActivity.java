@@ -3,6 +3,7 @@ package com.karlssonkristoffer.inavicon;
 import android.content.Intent;
 import android.media.Image;
 import android.support.annotation.NonNull;
+import android.support.transition.Transition;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,9 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
+import java.util.concurrent.TimeUnit;
 import java.util.jar.Attributes;
 
 import io.proximi.proximiiolibrary.ProximiioGeofence;
+import android.graphics.drawable.TransitionDrawable;
 
 public class MainActivity extends AppCompatActivity {
     private MainListener mainListener;
@@ -63,15 +66,30 @@ public class MainActivity extends AppCompatActivity {
     public void updateCheckpoint(ProximiioGeofence activatedGeofence) {
         TextView text = (TextView) findViewById(R.id.geofence);
         text.setText("Entered: " + activatedGeofence.getName());
-        ImageView icon = (ImageView) findViewById(R.id.currentIcon);
 
         if(activatedGeofence.getName().equals(demoPath.getCurrent().getGeofenceName())) {
+            animate_bg();
+            ImageView icon = (ImageView) findViewById(R.id.currentIcon);
             icon.setImageResource(demoPath.getNext().getIcon());
+            if(demoPath.hasNextCheckPointInstructions()) {
+                TextView instruction = (TextView) findViewById(R.id.instruction);
+                instruction.setText(demoPath.getNextCheckPointInstructions());
+            }
             demoPath.lookForNext();
         }
-        //http://stackoverflow.com/questions/5254100/how-to-set-an-imageviews-image-from-a-string
-    }
 
+    }
+        //http://stackoverflow.com/questions/5254100/how-to-set-an-imageviews-image-from-a-string
+    public void animate_bg(){
+        TransitionDrawable transition = (TransitionDrawable)findViewById(R.id.bgSquare).getBackground();
+        transition.startTransition(5000);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        transition.reverseTransition(1000);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
