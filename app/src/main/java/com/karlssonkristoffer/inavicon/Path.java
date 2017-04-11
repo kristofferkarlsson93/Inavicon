@@ -55,13 +55,11 @@ public class Path {
 
     public String getNextCheckPointInstructions() {
         return checkpoints[position+1].getInstruction();
-
     }
-/**
-    public Boolean currentIsPassed() {
-        return checkpoints[position].isPassed();
+    public Boolean hasNext() {
+        //replace with just < ??
+        return position <= checkpoints.length;
     }
-*/
     public void lookForNext() {
         position++;
     }

@@ -60,10 +60,15 @@ public class MainActivity extends AppCompatActivity {
     public void updateCheckpoint(ProximiioGeofence activatedGeofence) {
         TextView text = (TextView) findViewById(R.id.geofence);
         text.setText("Entered: " + activatedGeofence.getName());
+        if(demoPath.hasNext()) {
+            if(activatedGeofence.getName().equals(demoPath.getCurrent().getGeofenceName())) {
+                animateIcon();
+            }
+        }else {
+            //Code for finish message heare.
 
-        if(activatedGeofence.getName().equals(demoPath.getCurrent().getGeofenceName())) {
-            animateIcon();
         }
+
 
     }
         //http://stackoverflow.com/questions/5254100/how-to-set-an-imageviews-image-from-a-string
@@ -86,22 +91,19 @@ public class MainActivity extends AppCompatActivity {
              */
             @Override
             public void onFinish() {
-                transition.reverseTransition(200);
+                transition.reverseTransition(100);
                 ImageView icon = (ImageView) findViewById(R.id.currentIcon);
                 icon.setImageResource(demoPath.getNext().getIcon());
+                TextView instruction = (TextView) findViewById(R.id.instruction);
                 if(demoPath.hasNextCheckPointInstructions()) {
-                    TextView instruction = (TextView) findViewById(R.id.instruction);
                     instruction.setText(demoPath.getNextCheckPointInstructions());
+                }else {
+                    instruction.setText(" ");
                 }
                 demoPath.lookForNext();
             }
         }.start();
-        /*try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        transition.reverseTransition(1000);*/
+
     }
 
     @Override
