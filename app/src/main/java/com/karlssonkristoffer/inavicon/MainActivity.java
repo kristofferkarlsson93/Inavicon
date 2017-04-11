@@ -1,18 +1,12 @@
 package com.karlssonkristoffer.inavicon;
 
 import android.content.Intent;
-import android.media.Image;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
-import android.support.transition.Transition;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.lang.reflect.Array;
-import java.util.concurrent.TimeUnit;
-import java.util.jar.Attributes;
 
 import io.proximi.proximiiolibrary.ProximiioGeofence;
 import android.graphics.drawable.TransitionDrawable;
@@ -68,28 +62,48 @@ public class MainActivity extends AppCompatActivity {
         text.setText("Entered: " + activatedGeofence.getName());
 
         if(activatedGeofence.getName().equals(demoPath.getCurrent().getGeofenceName())) {
-            animate_bg();
-            ImageView icon = (ImageView) findViewById(R.id.currentIcon);
-            icon.setImageResource(demoPath.getNext().getIcon());
-            if(demoPath.hasNextCheckPointInstructions()) {
-                TextView instruction = (TextView) findViewById(R.id.instruction);
-                instruction.setText(demoPath.getNextCheckPointInstructions());
-            }
-            demoPath.lookForNext();
+            animateIcon();
         }
 
     }
         //http://stackoverflow.com/questions/5254100/how-to-set-an-imageviews-image-from-a-string
-    public void animate_bg(){
-        TransitionDrawable transition = (TransitionDrawable)findViewById(R.id.bgSquare).getBackground();
-        transition.startTransition(5000);
-        try {
+
+    /**
+     * Animates the background of the Icon to go from white to green and back. Then changes the
+     * icon. Transition takes 1 secound, then it is still for 2 seconds before it fades out
+     * and the icon changes.
+     */
+    public void animateIcon(){
+        final TransitionDrawable transition = (TransitionDrawable)findViewById(R.id.bgSquare).getBackground();
+        transition.startTransition(1000);
+        new CountDownTimer(2000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {}
+
+            /**
+             * When count down finishes the transition reverses and then changes the icon
+             */
+            @Override
+            public void onFinish() {
+                transition.reverseTransition(200);
+                ImageView icon = (ImageView) findViewById(R.id.currentIcon);
+                icon.setImageResource(demoPath.getNext().getIcon());
+                if(demoPath.hasNextCheckPointInstructions()) {
+                    TextView instruction = (TextView) findViewById(R.id.instruction);
+                    instruction.setText(demoPath.getNextCheckPointInstructions());
+                }
+                demoPath.lookForNext();
+            }
+        }.start();
+        /*try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        transition.reverseTransition(1000);
+        transition.reverseTransition(1000);*/
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
