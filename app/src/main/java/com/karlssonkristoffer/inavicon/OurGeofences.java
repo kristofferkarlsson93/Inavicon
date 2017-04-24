@@ -13,5 +13,6 @@ public class OurGeofences {
     public static final String THREE_DOORS= "threeDoors";
     public static final String TV = "TV";
     public static final String I_DOOR = "IDoor";
-    public static final String BRIDGE = "bridge";
+    public static final String LAST_STAIR = "lastStair";
+    public static final String INFOCENTER = "infocenter";
 }

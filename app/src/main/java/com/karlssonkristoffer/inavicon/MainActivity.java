@@ -1,13 +1,15 @@
 package com.karlssonkristoffer.inavicon;
-
+import android.R.color;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import io.proximi.proximiiolibrary.ProximiioGeofence;
 import android.graphics.drawable.TransitionDrawable;
 
@@ -15,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private MainListener mainListener;
     private Chechpoint[] checkpoints ;
     private Path demoPath;
+    private Button forceButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +26,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mainListener = new MainListener(this);
         demoPath = new Path();
-    }
+        forceButton = (Button) findViewById(R.id.forceButton);
+        forceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animateIcon();
+            }
+        });
 
+    }
 
     //From Proximi. To get permissions from users phone
     @Override
@@ -41,15 +51,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //for debug
-
     /**
      * Uppdates the possition text when user phone gets a new possition
      * @param latittude The new latitude to display
      * @param longitude The new longitude to display
      */
     public void updatePosText(double latittude, double longitude) {
-        TextView text = (TextView) findViewById(R.id.location);
-        text.setText(String.valueOf(latittude) + "\n " + String.valueOf(longitude));
+        /*TextView text = (TextView) findViewById(R.id.location);
+        text.setText(String.valueOf(latittude) + "\n " + String.valueOf(longitude));*/
     }
 
 
@@ -58,20 +67,22 @@ public class MainActivity extends AppCompatActivity {
      * @param activatedGeofence - A geofence from proximi
      */
     public void updateCheckpoint(ProximiioGeofence activatedGeofence) {
-        TextView text = (TextView) findViewById(R.id.geofence);
-        text.setText("Entered: " + activatedGeofence.getName());
+        /*TextView text = (TextView) findViewById(R.id.geofence);
+        text.setText("Entered: " + activatedGeofence.getName());*/
         if(demoPath.hasNext()) {
             if(activatedGeofence.getName().equals(demoPath.getCurrent().getGeofenceName())) {
                 animateIcon();
             }
         }else {
             //Code for finish message heare.
+            ImageView icon = (ImageView) findViewById(R.id.currentIcon);
+            TextView finishMessage = (TextView) findViewById(R.id.instruction);
+            icon.setImageResource(color.transparent);
+            finishMessage.setText("You have reached your destination");
+            finishMessage.setTextSize(24);
 
         }
-
-
     }
-        //http://stackoverflow.com/questions/5254100/how-to-set-an-imageviews-image-from-a-string
 
     /**
      * Animates the background of the Icon to go from white to green and back. Then changes the
@@ -80,15 +91,12 @@ public class MainActivity extends AppCompatActivity {
      */
     public void animateIcon(){
         final TransitionDrawable transition = (TransitionDrawable)findViewById(R.id.bgSquare).getBackground();
-        transition.startTransition(1000);
-        new CountDownTimer(2000, 1000) {
+        transition.startTransition(500);
+        new CountDownTimer(1000, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {}
 
-            /**
-             * When count down finishes the transition reverses and then changes the icon
-             */
             @Override
             public void onFinish() {
                 transition.reverseTransition(100);
@@ -103,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
                 demoPath.lookForNext();
             }
         }.start();
-
     }
 
     @Override

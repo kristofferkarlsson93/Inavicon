@@ -7,50 +7,21 @@
     android:background="@color/background_color"
     tools:context="com.karlssonkristoffer.inavicon.MainActivity">
 
-    <TextView
-        android:id="@+id/location"
-        android:layout_width="292dp"
-        android:layout_height="38dp"
-        android:layout_marginBottom="68dp"
-        android:text="@string/location"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <TextView
-        android:id="@+id/geofence"
-        android:layout_width="370dp"
-        android:layout_height="36dp"
-        android:text="@string/geofence"
-        android:textSize="24sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/location"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.98"
-        app:layout_constraintHorizontal_bias="1.0" />
-
     <ImageView
         android:id="@+id/bgSquare"
         android:layout_width="263dp"
         android:layout_height="250dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/transitiondrawable"
-        android:contentDescription="Success"
-        app:layout_constraintBottom_toTopOf="@+id/location"
-        app:layout_constraintHorizontal_bias="0.502"
+        android:contentDescription="@string/success"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/instruction"
-        app:layout_constraintVertical_bias="0.397" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-
-
         android:id="@+id/currentIcon"
         android:layout_width="206dp"
         android:layout_height="224dp"
@@ -61,7 +32,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/door"
         tools:layout_editor_absoluteY="152dp"
-        app:layout_constraintVertical_bias="0.501" />
+        app:layout_constraintVertical_bias="0.501"
+        android:contentDescription="" />
 
     <TextView
         android:id="@+id/instruction"
@@ -70,12 +42,30 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:textSize="32sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/currentIcon"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.296" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/forceButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/buttonColor"
+        android:text="@string/force_change"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.971"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.892" />
 
 </android.support.constraint.ConstraintLayout>

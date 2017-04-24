@@ -4,5 +4,5 @@
     <item android:name="start_bg"
         android:drawable="@color/background_color" />
     <item android:name="end_bg"
-        android:drawable="@color/buttonColor" />
+        android:drawable="@color/transitionColor" />
 </transition>

@@ -18,14 +18,16 @@ public class Path {
     public Path() {
         this.checkpoints = new Chechpoint[15];
         addChecpoint(new Chechpoint(OurGeofences.FIRST_DOOR, R.drawable.door));
-        addChecpoint(new Chechpoint(OurGeofences.FIRE_EXTINGUISHER, R.drawable.fireextinguisher, "poop"));
+        addChecpoint(new Chechpoint(OurGeofences.FIRE_EXTINGUISHER, R.drawable.fireextinguisher));
         addChecpoint(new Chechpoint(OurGeofences.STAIR, R.drawable.stairs, "1 Floor"));
-        addChecpoint(new Chechpoint(OurGeofences.DOOR_C3, R.drawable.door, "C3"));
+        addChecpoint(new Chechpoint(OurGeofences.DOOR_C3, R.drawable.c3door));
         addChecpoint(new Chechpoint(OurGeofences.EMERGENCY_DOOR, R.drawable.emergencyexit));
-        addChecpoint(new Chechpoint(OurGeofences.THREE_DOORS, R.drawable.door, "Two doors"));
+        addChecpoint(new Chechpoint(OurGeofences.THREE_DOORS, R.drawable.threedoor));
         addChecpoint(new Chechpoint(OurGeofences.TV, R.drawable.television));
-        addChecpoint(new Chechpoint(OurGeofences.I_DOOR, R.drawable.door, "i"));
-        addChecpoint(new Chechpoint(OurGeofences.BRIDGE, R.drawable.bridge));
+        addChecpoint(new Chechpoint(OurGeofences.I_DOOR, R.drawable.infodoor));
+        addChecpoint(new Chechpoint(OurGeofences.LAST_STAIR, R.drawable.stairsdown));
+        addChecpoint(new Chechpoint(OurGeofences.INFOCENTER, R.drawable.information,
+                "Service-center"));
         position = 0;
     }
 
@@ -56,9 +58,12 @@ public class Path {
     public String getNextCheckPointInstructions() {
         return checkpoints[position+1].getInstruction();
     }
+
     public Boolean hasNext() {
-        //replace with just < ??
-        return position <= checkpoints.length;
+        if (checkpoints[position+1] != null) {
+            return true;
+        }
+        return false;
     }
     public void lookForNext() {
         position++;

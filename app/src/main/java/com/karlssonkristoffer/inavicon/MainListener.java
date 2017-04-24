@@ -43,7 +43,7 @@ public class MainListener extends ProximiioListener {
         // See ProximiioListener for all methods that can be overridden.
         if (main != null) {
             //main.someAction();
-            main.updatePosText(lat, lon);
+            //main.updatePosText(lat, lon);
         }
         Log.d(ID, "Position update! (" + lat + ", " + lon + ")");
     }

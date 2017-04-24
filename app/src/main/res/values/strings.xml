@@ -2,4 +2,6 @@
     <string name="app_name">Inavicon</string>
     <string name="geofence">Geofence</string>
     <string name="location">Location</string>
+    <string name="force_change">Force change</string>
+    <string name="success">Success</string>
 </resources>
