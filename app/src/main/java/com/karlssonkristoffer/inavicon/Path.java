@@ -19,7 +19,8 @@ public class Path {
         this.checkpoints = new Chechpoint[15];
         addChecpoint(new Chechpoint(OurGeofences.FIRST_DOOR, R.drawable.door));
         addChecpoint(new Chechpoint(OurGeofences.FIRE_EXTINGUISHER, R.drawable.fireextinguisher));
-        addChecpoint(new Chechpoint(OurGeofences.STAIR, R.drawable.stairs, "1 Floor"));
+        addChecpoint(new Chechpoint(OurGeofences.STAIR, R.drawable.stairs,
+                "1 Floor. Press button for next icon"));
         addChecpoint(new Chechpoint(OurGeofences.DOOR_C3, R.drawable.c3door));
         addChecpoint(new Chechpoint(OurGeofences.EMERGENCY_DOOR, R.drawable.emergencyexit));
         addChecpoint(new Chechpoint(OurGeofences.THREE_DOORS, R.drawable.threedoor));
