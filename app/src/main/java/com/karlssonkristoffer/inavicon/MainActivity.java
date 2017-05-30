@@ -67,20 +67,16 @@ public class MainActivity extends AppCompatActivity {
      * @param activatedGeofence - A geofence from proximi
      */
     public void updateCheckpoint(ProximiioGeofence activatedGeofence) {
-        /*TextView text = (TextView) findViewById(R.id.geofence);
-        text.setText("Entered: " + activatedGeofence.getName());*/
         if(demoPath.hasNext()) {
-            if(activatedGeofence.getName().equals(demoPath.getCurrent().getGeofenceName())) {
+            if(activatedGeofence.getName().equals(demoPath.getCurrentGeofenceName())) {
                 animateIcon();
             }
         }else {
-            //Code for finish message heare.
             ImageView icon = (ImageView) findViewById(R.id.currentIcon);
             TextView finishMessage = (TextView) findViewById(R.id.instruction);
             icon.setImageResource(color.transparent);
             finishMessage.setText("You have reached your destination");
             finishMessage.setTextSize(24);
-
         }
     }
 
@@ -101,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 transition.reverseTransition(100);
                 ImageView icon = (ImageView) findViewById(R.id.currentIcon);
-                icon.setImageResource(demoPath.getNext().getIcon());
+                icon.setImageResource(demoPath.getNextIcon());
                 TextView instruction = (TextView) findViewById(R.id.instruction);
                 if(demoPath.hasNextCheckPointInstructions()) {
                     instruction.setText(demoPath.getNextCheckPointInstructions());

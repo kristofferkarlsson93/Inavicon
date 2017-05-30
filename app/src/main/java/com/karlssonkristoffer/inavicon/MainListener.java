@@ -2,6 +2,9 @@ package com.karlssonkristoffer.inavicon;
 
 /**
  * Created by Kristoffer on 2017-04-05.
+ *
+ * A listener to proximi.io. Extends ProximiioListenr
+ * Receives updates and listenes to events.
  */
 
 import android.content.Intent;
@@ -26,9 +29,14 @@ public class MainListener extends ProximiioListener {
         proximiioAPI.setActivity(main);
         proximiioAPI.setListener(this);
         proximiioAPI.setAuth(AUTH_KEY);
-        Log.d(ID, "Constructor");
     }
 
+     /**
+     * Handles and asks for the permissions from the phone
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         proximiioAPI.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
@@ -37,20 +45,26 @@ public class MainListener extends ProximiioListener {
         proximiioAPI.onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * Listens to position updats from the API.
+     * @param lat current latitude of positioning
+     * @param lon current longitude of positions
+     * @param accuracy the accuracy of the position
+     */
     @Override
     public void position(double lat, double lon, double accuracy) {
-        // Do something with the positioning system.
-        // See ProximiioListener for all methods that can be overridden.
         if (main != null) {
-            //main.someAction();
             //main.updatePosText(lat, lon);
         }
         Log.d(ID, "Position update! (" + lat + ", " + lon + ")");
     }
 
+    /**
+     * This method runs when phone enters a geofence.
+     * @param geofence the geofence object that is entered
+     */
     @Override
     public void geofenceEnter(ProximiioGeofence geofence) {
-        Log.d(ID, "Entered geofence: " + geofence.getName());
         main.updateCheckpoint(geofence);
     }
 

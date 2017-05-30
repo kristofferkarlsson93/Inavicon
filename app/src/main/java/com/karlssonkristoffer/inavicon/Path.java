@@ -48,8 +48,12 @@ public class Path {
         return checkpoints[position];
     }
 
-    public int getCurrentIcon() {
-        return checkpoints[position].getIcon();
+    public String getCurrentGeofenceName() {
+         return checkpoints[position].getGeofenceName();
+    }
+
+    public int getNextIcon() {
+        return checkpoints[position+1].getIcon();
     }
 
     public Boolean hasNextCheckPointInstructions() {
